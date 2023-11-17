@@ -24,3 +24,5 @@ do_deploy:append:cot() {
     rm -f ${uboot_deployed_image}.backup
   fi
 }
+
+KERNEL_ROOTSPEC = "root=PARTLABEL=${bootpart_label} rootwait"
