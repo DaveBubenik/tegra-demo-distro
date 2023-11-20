@@ -7,9 +7,6 @@ SRC_URI = "\
     file://swupdate-genconfig.sh \
     file://swupdate-mods.conf \
     file://update_bootinfo-mods.conf \
-"
-
-SRC_URI:append:secureboot = " \
     file://swupdate.pem \
 "
 
@@ -30,16 +27,13 @@ do_install() {
     ln -s /run/swupdate/swupdate.cfg ${D}${sysconfdir}/swupdate.cfg
     install -d ${D}${datadir}/swupdate
     install -m 0644 ${S}/swupdate.cfg.in ${D}${datadir}/swupdate/
+    install -m 0644 ${S}/swupdate.pem ${D}${datadir}/swupdate/
     install -d ${D}${libexecdir}/swupdate
     install -m 0755 ${S}/swupdate-genconfig.sh ${D}${libexecdir}/swupdate/swupdate-genconfig
     install -d ${D}${sysconfdir}/systemd/system/swupdate.service.d
     install -m 0644 ${S}/swupdate-mods.conf ${D}${sysconfdir}/systemd/system/swupdate.service.d/
     install -d ${D}${sysconfdir}/systemd/system/update_bootinfo.service.d
     install -m 0644 ${S}/update_bootinfo-mods.conf ${D}${sysconfdir}/systemd/system/update_bootinfo.service.d/swupdate-mods.conf
-}
-
-do_install:append:secureboot() {
-    install -m 0644 ${S}/swupdate.pem ${D}${datadir}/swupdate/
 }
 
 FILES:${PN} += "${datadir}/swupdate"

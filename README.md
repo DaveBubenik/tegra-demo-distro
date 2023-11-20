@@ -1,5 +1,49 @@
 # tegra-demo-distro
 
+This has only been tested with jetson-j2022-xavier-nx-512nvme.
+
+1. Clone this repository:
+
+        $ git clone --recurse-submodules -b kirkstone-l4t-r32.7.x https://github.com/DaveBubenik/tegra-demo-distro
+
+2. Copy swupdate repo
+
+        $ cd tegra-demo-distro
+        $ cp repos/meta-swupdate layers/meta-swupdate
+
+3. Source the `setup-env` script to create a build directory,
+   specifying the MACHINE you want to configure as the default
+   for your builds. For example, to set up a build directory
+   called `build` that is set up for the Jetson Xavier NX
+   developer kit and the default `tegrademo` distro:
+
+        $ cd tegra-demo-distro
+        $ . ./setup-env --machine jetson-j2022-xavier-nx-512nvme
+
+4. Add swupdate into project
+
+        $ bitbake-layers add-layer ../layers/meta-swupdate
+
+5. Update local.conf for external storage and image types
+
+        $ echo 'TNSPEC_BOOTDEV = "nvme0n1p1"' >> conf/local.conf 
+        $ echo 'IMAGE_FSTYPES = "tar.gz ext4.gz tegraflash"' >> conf/local.conf 
+
+6. Build
+
+        $ bitbake demo-swupdate-full
+
+7. Applying update
+
+        First install the tegraflash image using initrd-flash. Then copy the swu file over to the device.
+        Run the following command: swupdate -e "system,slot_a" -i ./demo-swupdate-full-jetson-xavier-nx-devkit-emmc.swu 
+
+8. Verify the update occured
+
+        $ lsblk will report the root file partition is running on nvme0n1p2
+
+
+
 Reference/demo distribution for NVIDIA Jetson platforms
 using Yocto Project tools and the meta-tegra BSP layer.
 

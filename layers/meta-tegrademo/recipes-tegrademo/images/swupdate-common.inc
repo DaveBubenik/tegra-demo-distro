@@ -4,6 +4,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 SRC_URI = "\
     file://sw-description \
     file://swupdate-bl-update.sh \
+    file://development-1.key.pem \
 "
 
 ROOTFS_DEVICE_PATH = "/dev/disk/by-partlabel"
@@ -14,11 +15,19 @@ SWUPDATE_IMAGES = "${DEPLOY_DIR_IMAGE}/${SWUPDATE_IMAGE_NAME}-${MACHINE}.tar.gz"
 
 IMAGE_DEPENDS ?= "${SWUPDATE_IMAGE_NAME}"
 
+IMAGE_INSTALL:append = " \
+    swupdate \
+    swupdate-client \
+    swupdate-progress \
+    swupdate-tools-ipc \
+    tegra-bup-payload \
+"
+
 inherit swupdate
 
 SWUPDATE_SIGNING = "RSA"
 SWUPDATE_SIGNING_METHOD ??= "RSA"
-SWUPDATE_PRIVATE_KEY ??= "/home/synxbuild/src/digsigserver/signing_keys/tegrademo/swupdate/rsa-private.key"
+SWUPDATE_PRIVATE_KEY ??= "${WORKDIR}/development-1.key.pem"
 
 ALTMACHINE = ""
 ALTMACHINE:jetson-tx1-devkit = "jetson-tx1"
