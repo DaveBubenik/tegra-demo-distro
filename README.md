@@ -15,25 +15,22 @@ This has only been tested with jetson-j2022-xavier-nx-512nvme.
         $ cd tegra-demo-distro
         $ . ./setup-env --machine jetson-j2022-xavier-nx-512nvme
 
-3. Add swupdate into project
-
-        $ bitbake-layers add-layer ../layers/meta-swupdate
-
-4. Update local.conf for external storage and image types
+3. Update local.conf for external storage and image types
 
         $ echo 'TNSPEC_BOOTDEV = "nvme0n1p1"' >> conf/local.conf 
         $ echo 'IMAGE_FSTYPES = "tar.gz ext4.gz tegraflash"' >> conf/local.conf 
 
-5. Build
+4. Build
 
         $ bitbake demo-swupdate-full
 
-6. Applying update
+5. Applying update
 
         First install the tegraflash image using initrd-flash. Then copy the swu file over to the device.
-        Run the following command: swupdate -e "system,slot_a" -i ./demo-swupdate-full-jetson-xavier-nx-devkit-emmc.swu 
+        Run the following command: swupdate -e "system,slot_a" -i ./demo-swupdate-full-jetson-xavier-nx-devkit-emmc.swu
+        Reboot the jetson
 
-7. Verify the update occured
+6. Verify the update occured
 
         $ lsblk will report the root file partition is running on nvme0n1p2
 
