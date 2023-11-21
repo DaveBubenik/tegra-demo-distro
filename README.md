@@ -26,8 +26,8 @@ This has only been tested with jetson-j2022-xavier-nx-512nvme.
 
 5. Applying update
 
-        First install the tegraflash image using initrd-flash. Then copy the swu file over to the device.
-        Run the following command: swupdate -e "system,slot_a" -i ./demo-swupdate-full-jetson-xavier-nx-devkit-emmc.swu
+        First install the tegraflash image using initrd-flash. Then copy the swu file and swupdate.pem over to the device.
+        Run the following command: swupdate -e "system,slot_a" -k swupdate.pem -i ./demo-swupdate-full-jetson-xavier-nx-devkit-emmc.swu
         Reboot the jetson
 
 6. Verify the update occured

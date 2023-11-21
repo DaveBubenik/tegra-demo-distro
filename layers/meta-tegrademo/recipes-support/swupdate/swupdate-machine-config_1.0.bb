@@ -27,7 +27,7 @@ do_install() {
     ln -s /run/swupdate/swupdate.cfg ${D}${sysconfdir}/swupdate.cfg
     install -d ${D}${datadir}/swupdate
     install -m 0644 ${S}/swupdate.cfg.in ${D}${datadir}/swupdate/
-    install -m 0644 ${S}/swupdate.pem ${D}${datadir}/swupdate/
+    #install -m 0644 ${S}/swupdate.pem ${D}${datadir}/swupdate/
     install -d ${D}${libexecdir}/swupdate
     install -m 0755 ${S}/swupdate-genconfig.sh ${D}${libexecdir}/swupdate/swupdate-genconfig
     install -d ${D}${sysconfdir}/systemd/system/swupdate.service.d
