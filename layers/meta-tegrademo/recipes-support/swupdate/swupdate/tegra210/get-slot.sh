@@ -5,7 +5,7 @@ get_current_slot() {
     elif [ -e /run/systemd/volatile-root ]; then
 	rootdev="/run/systemd/volatile-root"
     else
-	rootdev="/"
+	rootdev=$(findmnt -n -o SOURCE /)
     fi
     partlabel=$(lsblk -oPARTLABEL -n "$rootdev" 2>/dev/null)
     if [ -n "$partlabel" ]; then

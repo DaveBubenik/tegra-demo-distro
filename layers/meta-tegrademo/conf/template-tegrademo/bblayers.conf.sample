@@ -15,6 +15,7 @@ BBLAYERS ?= " \
   ##OEROOT##/meta-networking \
   ##OEROOT##/meta-filesystems \
   ##OEROOT##/meta-virtualization \
+  ##OEROOT##/meta-swupdate \
   ##OEROOT##/meta-tegra-community \
   ##OEROOT##/meta-tegra-support \
   ##OEROOT##/meta-demo-ci \
